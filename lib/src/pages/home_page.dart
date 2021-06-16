@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:movies_app/src/pages/widgets/card_swipper_widget.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -37,21 +37,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSwiperCard() {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 10,
-      ),
-      width: double.infinity,
-      height: 300,
-      child: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return Image.network('https://picsum.photos/300/300');
-        },
-        itemCount: 3,
-        itemHeight: 300,
-        itemWidth: 300,
-        layout: SwiperLayout.STACK,
-      ),
+    return SwipperCard(
+      movies: [0, 1, 2, 3, 4],
     );
   }
 }
