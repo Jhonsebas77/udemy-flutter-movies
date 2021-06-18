@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/pages/widgets/card_swipper_widget.dart';
+import 'package:movies_app/src/providers/movies_provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -37,6 +38,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSwiperCard() {
+    final moviesProvider = MoviesProvider();
+    moviesProvider.getNowPlaying();
     return SwipperCard(
       movies: [0, 1, 2, 3, 4],
     );
