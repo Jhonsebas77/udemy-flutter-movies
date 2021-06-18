@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/src/pages/widgets/card_popular_movie.dart';
-import 'package:movies_app/src/pages/widgets/card_swipper_widget.dart';
+import 'package:movies_app/src/pages/widgets/popular_movie/card_popular_movie.dart';
+import 'package:movies_app/src/pages/widgets/poster_movie/card_swipper_widget.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -65,11 +65,21 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _buildFooter(BuildContext context) => Container(
+        width: double.infinity,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Popular',
-              style: Theme.of(context).textTheme.subtitle1,
+            Container(
+              padding: EdgeInsets.only(
+                left: 10,
+              ),
+              child: Text(
+                'Popular',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             FutureBuilder(
               future: moviesProvider.getPopular(),
@@ -83,7 +93,6 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else {
                   return Container(
-                    height: 400,
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
@@ -93,6 +102,5 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        width: double.infinity,
       );
 }
