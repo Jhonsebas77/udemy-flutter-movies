@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/src/pages/widgets/card_popular_movie.dart';
 import 'package:movies_app/src/pages/widgets/card_swipper_widget.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
 
@@ -31,31 +32,67 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.redAccent,
       ),
       body: Container(
-          child: Column(
-        children: [
-          _buildSwiperCard(),
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildSwiperCard(),
+            _buildFooter(context),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildSwiperCard() {
-    return FutureBuilder(
-      future: moviesProvider.getNowPlaying(),
-      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-        if (snapshot.hasData) {
-          return SwipperCard(
-            movies: snapshot.data,
-          );
-        } else {
-          return Container(
-            height: 400,
-            child: Center(
-              child: CircularProgressIndicator(),
+  Widget _buildSwiperCard() => FutureBuilder(
+        future: moviesProvider.getNowPlaying(),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<List> snapshot,
+        ) {
+          if (snapshot.hasData) {
+            return SwipperCard(
+              movies: snapshot.data,
+            );
+          } else {
+            return Container(
+              height: 400,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
+      );
+
+  Widget _buildFooter(BuildContext context) => Container(
+        child: Column(
+          children: [
+            Text(
+              'Popular',
+              style: Theme.of(context).textTheme.subtitle1,
             ),
-          );
-        }
-      },
-    );
-  }
+            FutureBuilder(
+              future: moviesProvider.getPopular(),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<List> snapshot,
+              ) {
+                if (snapshot.hasData) {
+                  return CardPopular(
+                    movies: snapshot.data,
+                  );
+                } else {
+                  return Container(
+                    height: 400,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+        width: double.infinity,
+      );
 }
