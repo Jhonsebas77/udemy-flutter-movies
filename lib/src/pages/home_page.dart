@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final moviesProvider = MoviesProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +40,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSwiperCard() {
-    final moviesProvider = MoviesProvider();
-    moviesProvider.getNowPlaying();
-    return SwipperCard(
-      movies: [0, 1, 2, 3, 4],
+    return FutureBuilder(
+      future: moviesProvider.getNowPlaying(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return SwipperCard(
+            movies: snapshot.data,
+          );
+        } else {
+          return Container(
+            height: 400,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }

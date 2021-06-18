@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({Key key}) : super(key: key);
+  final String urlPoster;
+  const CardItem({
+    @required this.urlPoster,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,7 @@ class CardItem extends StatelessWidget {
           'Assets/images/jar-loading.gif',
         ),
         image: NetworkImage(
-          'https://picsum.photos/300/300',
+          urlPoster,
         ),
         fadeInDuration: Duration(
           milliseconds: 200,

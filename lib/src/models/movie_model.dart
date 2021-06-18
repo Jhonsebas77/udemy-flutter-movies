@@ -60,4 +60,12 @@ class Movie {
     voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
   }
+
+  getPosterImage() {
+    if (posterPath == null)
+      return 'https://davidkoepp.com/wp-content/themes/blankslate/images/Movie%20Placeholder.jpg';
+    else {
+      return 'https://image.tmdb.org/t/p/w500$posterPath';
+    }
+  }
 }
