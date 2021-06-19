@@ -4,15 +4,29 @@ import 'package:movies_app/src/pages/widgets/popular_movie/card_popular_item.dar
 
 class CardPopular extends StatelessWidget {
   final List<Movie> movies;
+  final Function nextPage;
+  final _pageController = new PageController(
+    initialPage: 1,
+    viewportFraction: 0.3,
+  );
 
-  const CardPopular({
+  CardPopular({
     @required this.movies,
+    @required this.nextPage,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
+    _pageController.addListener(
+      () {
+        if (_pageController.position.pixels >=
+            _pageController.position.maxScrollExtent - 200) {
+          nextPage();
+        }
+      },
+    );
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -21,10 +35,7 @@ class CardPopular extends StatelessWidget {
       child: PageView(
         pageSnapping: false,
         children: _cards(),
-        controller: PageController(
-          initialPage: 1,
-          viewportFraction: 0.3,
-        ),
+        controller: _pageController,
       ),
     );
   }

@@ -12,9 +12,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final moviesProvider = MoviesProvider();
-
   @override
   Widget build(BuildContext context) {
+    moviesProvider.getPopular();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -81,8 +81,8 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 5,
             ),
-            FutureBuilder(
-              future: moviesProvider.getPopular(),
+            StreamBuilder(
+              stream: moviesProvider.popularStream,
               builder: (
                 BuildContext context,
                 AsyncSnapshot<List> snapshot,
@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                 if (snapshot.hasData) {
                   return CardPopular(
                     movies: snapshot.data,
+                    nextPage: moviesProvider.getPopular,
                   );
                 } else {
                   return Container(
