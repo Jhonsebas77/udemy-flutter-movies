@@ -32,22 +32,15 @@ class CardPopular extends StatelessWidget {
         top: 10,
       ),
       height: _screenSize.height * 0.3,
-      child: PageView(
+      child: PageView.builder(
         pageSnapping: false,
-        children: _cards(),
         controller: _pageController,
+        itemCount: movies.length,
+        itemBuilder: (context, index) => CardPopularItem(
+          urlPoster: movies[index].getPosterImage(),
+          movieTitle: movies[index].title,
+        ),
       ),
     );
-  }
-
-  List<Widget> _cards() {
-    return movies
-        .map(
-          (_movie) => CardPopularItem(
-            urlPoster: _movie.getPosterImage(),
-            movieTitle: _movie.title,
-          ),
-        )
-        .toList();
   }
 }
