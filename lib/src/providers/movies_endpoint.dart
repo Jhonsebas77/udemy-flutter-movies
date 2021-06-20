@@ -3,4 +3,5 @@ class MoviesEndpoint {
   static String getNowPlaying = '3/movie/now_playing';
   static String getPopular = '3/movie/popular';
   static String getCredits(String movieId) => '3/movie/$movieId/credits';
+  static String findMovie = '3/search/movie';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/src/pages/widgets/popular_movie/card_popular_movie.dart';
 import 'package:movies_app/src/pages/widgets/poster_movie/card_swipper_widget.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
+import 'package:movies_app/src/search/search_delegate.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -23,7 +24,13 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.search,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: DataSearch(),
+                // query: 'Hola',
+              );
+            },
           ),
         ],
         title: Text(
