@@ -20,7 +20,7 @@ class CardPopularItem extends StatelessWidget {
           ClipRRect(
             child: FadeInImage(
               placeholder: AssetImage(
-                'Assets/images/jar-loading.gif',
+                'Assets/images/no-image.jpg',
               ),
               image: NetworkImage(
                 urlPoster,

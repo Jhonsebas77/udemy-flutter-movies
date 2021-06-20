@@ -68,4 +68,12 @@ class Movie {
       return 'https://image.tmdb.org/t/p/w500$posterPath';
     }
   }
+
+  getHeaderImage() {
+    if (backdropPath == null)
+      return 'https://davidkoepp.com/wp-content/themes/blankslate/images/Movie%20Placeholder.jpg';
+    else {
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
+    }
+  }
 }
