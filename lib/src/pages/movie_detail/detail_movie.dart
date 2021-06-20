@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/movie_model.dart';
+import 'package:movies_app/src/pages/movie_detail/widgets/actor/card_actor.dart';
 import 'package:movies_app/src/pages/movie_detail/widgets/header_background.dart';
 import 'package:movies_app/src/pages/movie_detail/widgets/title_poster.dart';
+import 'package:movies_app/src/providers/movies_provider.dart';
 
 class DetailMovie extends StatelessWidget {
   const DetailMovie({Key key}) : super(key: key);
@@ -33,6 +35,9 @@ class DetailMovie extends StatelessWidget {
                   movie.overview,
                   context,
                 ),
+                _buildCasting(
+                  movie.id.toString(),
+                ),
               ],
             ),
           ),
@@ -54,6 +59,30 @@ class DetailMovie extends StatelessWidget {
         overview,
         textAlign: TextAlign.justify,
       ),
+    );
+  }
+
+  Widget _buildCasting(String id) {
+    final movieProvider = new MoviesProvider();
+    return FutureBuilder(
+      future: movieProvider.getActor(id),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List> snapshot,
+      ) {
+        if (snapshot.hasData) {
+          return ActorCard(
+            actors: snapshot.data,
+          );
+        } else {
+          return Container(
+            height: 400,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movies_app/src/models/actor_model.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_endpoint.dart';
 
@@ -27,6 +28,13 @@ class MoviesProvider {
     final decodeResponse = json.decode(response.body);
     final movies = Movies.fromJsonList(decodeResponse[decodeValue]);
     return movies.items;
+  }
+
+  Future<List<Actor>> _makeRequestActor(Uri url, String decodeValue) async {
+    final response = await http.get(url);
+    final decodeResponse = json.decode(response.body);
+    final actors = Actors.fromJsonList(decodeResponse[decodeValue]);
+    return actors.items;
   }
 
   Future<List<Movie>> getNowPlaying() async {
@@ -60,5 +68,19 @@ class MoviesProvider {
     popularSink(_popularMovies);
     _loading = false;
     return response;
+  }
+
+  Future<List<Actor>> getActor(
+    String movieId,
+  ) async {
+    final url = Uri.https(
+      MoviesEndpoint.baseEndpoint,
+      MoviesEndpoint.getCredits(movieId),
+      {
+        'api_key': _apiKey,
+        'languaje': _language,
+      },
+    );
+    return _makeRequestActor(url, 'cast');
   }
 }
