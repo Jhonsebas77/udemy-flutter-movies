@@ -83,4 +83,19 @@ class MoviesProvider {
     );
     return _makeRequestActor(url, 'cast');
   }
+
+  Future<List<Movie>> findMovie(
+    String query,
+  ) async {
+    final url = Uri.https(
+      MoviesEndpoint.baseEndpoint,
+      MoviesEndpoint.findMovie,
+      {
+        'api_key': _apiKey,
+        'languaje': _language,
+        'query': query,
+      },
+    );
+    return _makeRequest(url, 'results');
+  }
 }

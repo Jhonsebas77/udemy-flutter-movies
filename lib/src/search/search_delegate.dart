@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/src/models/movie_model.dart';
+import 'package:movies_app/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
   final movies = [
@@ -12,6 +14,8 @@ class DataSearch extends SearchDelegate {
     'Spiderman',
     'Capitan America',
   ];
+  final movieProvider = new MoviesProvider();
+
   String sellection;
 
   @override
@@ -46,42 +50,69 @@ class DataSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 100,
-        width: 100,
-        color: Colors.amberAccent,
-        child: Text(sellection),
-      ),
-    );
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final listSuggest = (query.isEmpty)
-        ? recentMovies
-        : movies
-            .where(
-              (_movie) => _movie.toLowerCase().startsWith(
-                    query.toLowerCase(),
+    // final listSuggest = (query.isEmpty)
+    //     ? recentMovies
+    //     : movies
+    //         .where(
+    //           (_movie) => _movie.toLowerCase().startsWith(
+    //                 query.toLowerCase(),
+    //               ),
+    //         )
+    //         .toList();
+    if (query.isEmpty) {
+      return Container();
+    }
+
+    return FutureBuilder(
+      future: movieProvider.findMovie(query),
+      builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+        if (snapshot.hasData) {
+          final movies = snapshot.data;
+          return ListView(
+            children: movies.map(
+              (_movie) {
+                return ListTile(
+                  leading: FadeInImage(
+                    image: NetworkImage(
+                      _movie.getPosterImage(),
+                    ),
+                    placeholder: AssetImage(
+                      'Assets/images/no-image.jpg',
+                    ),
+                    width: 50,
+                    fit: BoxFit.contain,
                   ),
-            )
-            .toList();
-    return ListView.builder(
-      itemCount: listSuggest.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          leading: Icon(
-            Icons.movie,
-          ),
-          title: Text(
-            listSuggest[index],
-          ),
-          onTap: () {
-            sellection = listSuggest[index];
-            showResults(context);
-          },
-        );
+                  title: Text(
+                    _movie.title,
+                  ),
+                  subtitle: Text(
+                    _movie.originalTitle,
+                  ),
+                  onTap: () {
+                    showResults(context);
+                    _movie.uniqueId = '';
+                    Navigator.pushNamed(
+                      context,
+                      '/detail',
+                      arguments: _movie,
+                    );
+                  },
+                );
+              },
+            ).toList(),
+          );
+        } else {
+          return Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
       },
     );
   }
