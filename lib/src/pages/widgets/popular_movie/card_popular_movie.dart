@@ -40,6 +40,7 @@ class CardPopular extends StatelessWidget {
           child: CardPopularItem(
             urlPoster: movies[index].getPosterImage(),
             movieTitle: movies[index].title,
+            movieId: movies[index].id.toString(),
           ),
           onTap: () {
             Navigator.pushNamed(

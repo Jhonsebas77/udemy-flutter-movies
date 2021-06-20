@@ -30,6 +30,7 @@ class DetailMovie extends StatelessWidget {
                   movieOriginalTitle: movie.originalTitle,
                   movieTitle: movie.title,
                   voteAverage: movie.voteAverage.toString(),
+                  movieId: movie.id.toString(),
                 ),
                 _buildDescriptionMovie(
                   movie.overview,
