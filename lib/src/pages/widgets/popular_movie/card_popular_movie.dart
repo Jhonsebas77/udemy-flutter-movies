@@ -36,9 +36,18 @@ class CardPopular extends StatelessWidget {
         pageSnapping: false,
         controller: _pageController,
         itemCount: movies.length,
-        itemBuilder: (context, index) => CardPopularItem(
-          urlPoster: movies[index].getPosterImage(),
-          movieTitle: movies[index].title,
+        itemBuilder: (context, index) => GestureDetector(
+          child: CardPopularItem(
+            urlPoster: movies[index].getPosterImage(),
+            movieTitle: movies[index].title,
+          ),
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/detail',
+              arguments: movies[index],
+            );
+          },
         ),
       ),
     );

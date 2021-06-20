@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CardPopularItem extends StatelessWidget {
-  final String urlPoster;
-  final String movieTitle;
-  const CardPopularItem({
-    @required this.urlPoster,
-    @required this.movieTitle,
+class CardActorItem extends StatelessWidget {
+  final String urlPhoto;
+  final String characterName;
+  final String realName;
+
+  const CardActorItem({
+    @required this.urlPhoto,
+    @required this.characterName,
+    @required this.realName,
     Key key,
   }) : super(key: key);
 
@@ -23,7 +26,7 @@ class CardPopularItem extends StatelessWidget {
                 'Assets/images/no-image.jpg',
               ),
               image: NetworkImage(
-                urlPoster,
+                urlPhoto,
               ),
               fadeInDuration: Duration(
                 milliseconds: 200,
@@ -34,9 +37,14 @@ class CardPopularItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           Text(
-            movieTitle,
+            characterName,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          Text(
+            realName,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subtitle2,
           ),
         ],
       ),
