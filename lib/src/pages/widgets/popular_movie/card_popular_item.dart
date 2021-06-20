@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class CardPopularItem extends StatelessWidget {
   final String urlPoster;
   final String movieTitle;
-  final String movieId;
+  final String movieUniqueId;
 
   const CardPopularItem({
     @required this.urlPoster,
     @required this.movieTitle,
-    @required this.movieId,
+    @required this.movieUniqueId,
     Key key,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class CardPopularItem extends StatelessWidget {
       child: Column(
         children: [
           Hero(
-            tag: movieId,
+            tag: movieUniqueId,
             child: ClipRRect(
               child: FadeInImage(
                 placeholder: AssetImage(
