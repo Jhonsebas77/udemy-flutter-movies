@@ -4,12 +4,14 @@ import 'package:movies_app/src/pages/movie_detail/widgets/rate_stars.dart';
 class TitlePoster extends StatelessWidget {
   final String urlPosterImage;
   final String movieTitle;
+  final String movieUniqueId;
   final String movieOriginalTitle;
   final String voteAverage;
 
   const TitlePoster({
     @required this.urlPosterImage,
     @required this.movieTitle,
+    @required this.movieUniqueId,
     @required this.movieOriginalTitle,
     @required this.voteAverage,
     Key key,
@@ -23,15 +25,18 @@ class TitlePoster extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            child: Image(
-              image: NetworkImage(
-                urlPosterImage,
+          Hero(
+            tag: movieUniqueId,
+            child: ClipRRect(
+              child: Image(
+                image: NetworkImage(
+                  urlPosterImage,
+                ),
+                height: 150,
               ),
-              height: 150,
-            ),
-            borderRadius: BorderRadius.circular(
-              20,
+              borderRadius: BorderRadius.circular(
+                20,
+              ),
             ),
           ),
           SizedBox(

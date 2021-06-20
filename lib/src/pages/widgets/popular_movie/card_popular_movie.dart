@@ -27,6 +27,7 @@ class CardPopular extends StatelessWidget {
         }
       },
     );
+
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -36,19 +37,23 @@ class CardPopular extends StatelessWidget {
         pageSnapping: false,
         controller: _pageController,
         itemCount: movies.length,
-        itemBuilder: (context, index) => GestureDetector(
-          child: CardPopularItem(
-            urlPoster: movies[index].getPosterImage(),
-            movieTitle: movies[index].title,
-          ),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              '/detail',
-              arguments: movies[index],
-            );
-          },
-        ),
+        itemBuilder: (context, index) {
+          movies[index].uniqueId = '${movies[index].id}-popular';
+          return GestureDetector(
+            child: CardPopularItem(
+              urlPoster: movies[index].getPosterImage(),
+              movieTitle: movies[index].title,
+              movieUniqueId: movies[index].uniqueId,
+            ),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/detail',
+                arguments: movies[index],
+              );
+            },
+          );
+        },
       ),
     );
   }

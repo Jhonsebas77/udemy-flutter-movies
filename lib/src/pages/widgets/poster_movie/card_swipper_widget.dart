@@ -23,12 +23,27 @@ class SwipperCard extends StatelessWidget {
         itemHeight: _screenSize.height * 0.5,
         itemWidth: _screenSize.width * 0.7,
         layout: SwiperLayout.STACK,
-        itemBuilder: (BuildContext context, int index) => ClipRRect(
-          child: CardItem(
-            urlPoster: movies[index].getPosterImage(),
-          ),
-          borderRadius: BorderRadius.circular(30.0),
-        ),
+        itemBuilder: (BuildContext context, int index) {
+          movies[index].uniqueId = '${movies[index].id}-card';
+          return Hero(
+            tag: movies[index].uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30.0),
+              child: GestureDetector(
+                child: CardItem(
+                  urlPoster: movies[index].getPosterImage(),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/detail',
+                    arguments: movies[index],
+                  );
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }
