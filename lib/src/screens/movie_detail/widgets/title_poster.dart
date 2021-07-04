@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/src/pages/movie_detail/widgets/rate_stars.dart';
+import 'package:movies_app/src/screens/movie_detail/widgets/rate_stars.dart';
 
 class TitlePoster extends StatelessWidget {
   final String urlPosterImage;

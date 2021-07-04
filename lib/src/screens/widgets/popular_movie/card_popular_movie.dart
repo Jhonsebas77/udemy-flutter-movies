@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/movie_model.dart';
-import 'package:movies_app/src/pages/widgets/popular_movie/card_popular_item.dart';
+import 'package:movies_app/src/screens/widgets/popular_movie/card_popular_item.dart';
 
 class CardPopular extends StatelessWidget {
   final List<Movie> movies;

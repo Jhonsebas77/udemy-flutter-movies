@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/actor_model.dart';
-import 'package:movies_app/src/pages/movie_detail/widgets/actor/card_actor_item.dart';
+import 'package:movies_app/src/screens/movie_detail/widgets/actor/card_actor_item.dart';
 
 class ActorCard extends StatelessWidget {
   final List<Actor> actors;
