@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
     moviesProvider.getPopular();
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
         actions: [
           IconButton(
             icon: Icon(
@@ -36,13 +35,15 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'Movies in theathers',
         ),
-        backgroundColor: Colors.redAccent,
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildSwiperCard(),
+            SizedBox(
+              height: 20,
+            ),
             _buildFooter(context),
           ],
         ),
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            Padding(
               padding: EdgeInsets.only(
                 left: 10,
               ),
