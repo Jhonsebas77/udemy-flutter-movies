@@ -21,7 +21,7 @@ class HeaderBackground extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Chip(
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.black12,
           label: Text(
             movieTitle,
             style: TextStyle(

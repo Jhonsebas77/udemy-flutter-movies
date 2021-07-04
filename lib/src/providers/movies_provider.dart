@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies_app/src/models/actor_model.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_endpoint.dart';
 
-class MoviesProvider {
+class MoviesProvider extends ChangeNotifier {
   String _apiKey = '9d30286b85d5c959f62b788bf92a8bc1';
   String _language = 'es-ES';
   int _popularPage = 0;

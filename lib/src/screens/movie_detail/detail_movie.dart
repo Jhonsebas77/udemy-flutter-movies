@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/movie_model.dart';
-import 'package:movies_app/src/screens/movie_detail/widgets/actor/card_actor.dart';
-import 'package:movies_app/src/screens/movie_detail/widgets/header_background.dart';
-import 'package:movies_app/src/screens/movie_detail/widgets/title_poster.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
+import 'package:movies_app/src/screens/movie_detail/widgets/index.dart';
 
 class DetailMovie extends StatelessWidget {
   const DetailMovie({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context).settings.arguments;
+    final Movie movie = ModalRoute.of(context)?.settings?.arguments;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -52,7 +50,7 @@ class DetailMovie extends StatelessWidget {
   ) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: 20,
         vertical: 20,
       ),
       child: Text(

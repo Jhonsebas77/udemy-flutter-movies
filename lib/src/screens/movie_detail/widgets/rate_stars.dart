@@ -11,7 +11,13 @@ class RateStars extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.star_border),
+        Icon(
+          Icons.star,
+          color: Colors.yellow,
+        ),
+        SizedBox(
+          width: 5,
+        ),
         Text(
           voteAverage,
           style: Theme.of(context).textTheme.subtitle1,
