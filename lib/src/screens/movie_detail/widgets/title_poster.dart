@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/src/pages/movie_detail/widgets/rate_stars.dart';
+import 'package:movies_app/src/screens/movie_detail/widgets/index.dart';
 
 class TitlePoster extends StatelessWidget {
   final String urlPosterImage;
@@ -19,6 +19,7 @@ class TitlePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 20,
@@ -48,12 +49,14 @@ class TitlePoster extends StatelessWidget {
               children: [
                 Text(
                   movieTitle,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: textTheme.textTheme.headline6,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   movieOriginalTitle,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  maxLines: 2,
+                  style: textTheme.textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 RateStars(

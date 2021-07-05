@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
+import 'package:movies_app/src/search/widgets/movie_suggestion/movie_suggestion_item.dart';
+import 'package:provider/provider.dart';
 
 class DataSearch extends SearchDelegate {
-  final movies = [
-    'EndGame',
-    'Capitana Marvel',
-    'Capitan America',
-    'Spiderman',
-    'Pokemon',
-  ];
-  final recentMovies = [
-    'Spiderman',
-    'Capitan America',
-  ];
-  final movieProvider = new MoviesProvider();
-
-  String sellection;
+  @override
+  String get searchFieldLabel => 'Find Movies';
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -25,9 +15,7 @@ class DataSearch extends SearchDelegate {
         icon: Icon(
           Icons.clear,
         ),
-        onPressed: () {
-          query = '';
-        },
+        onPressed: () => query = '',
       ),
     ];
   }
@@ -53,65 +41,49 @@ class DataSearch extends SearchDelegate {
     return Container();
   }
 
+  Widget _buildLoadingSearch() => Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
+  Widget _buildEmptySearch() => Container(
+        child: Center(
+          child: Icon(
+            Icons.movie,
+            color: Colors.black38,
+            size: 130,
+          ),
+        ),
+      );
+
   @override
   Widget buildSuggestions(BuildContext context) {
-    // final listSuggest = (query.isEmpty)
-    //     ? recentMovies
-    //     : movies
-    //         .where(
-    //           (_movie) => _movie.toLowerCase().startsWith(
-    //                 query.toLowerCase(),
-    //               ),
-    //         )
-    //         .toList();
     if (query.isEmpty) {
-      return Container();
+      return _buildEmptySearch();
     }
-
-    return FutureBuilder(
-      future: movieProvider.findMovie(query),
+    final movieProvider = Provider.of<MoviesProvider>(
+      context,
+      listen: false,
+    );
+    movieProvider.getSuggestionByQuery(query);
+    return StreamBuilder(
+      stream: movieProvider.suggestionStream,
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
         if (snapshot.hasData) {
           final movies = snapshot.data;
           return ListView(
             children: movies.map(
               (_movie) {
-                return ListTile(
-                  leading: FadeInImage(
-                    image: NetworkImage(
-                      _movie.getPosterImage(),
-                    ),
-                    placeholder: AssetImage(
-                      'Assets/images/no-image.jpg',
-                    ),
-                    width: 50,
-                    fit: BoxFit.contain,
-                  ),
-                  title: Text(
-                    _movie.title,
-                  ),
-                  subtitle: Text(
-                    _movie.originalTitle,
-                  ),
-                  onTap: () {
-                    showResults(context);
-                    _movie.uniqueId = '';
-                    Navigator.pushNamed(
-                      context,
-                      '/detail',
-                      arguments: _movie,
-                    );
-                  },
+                return MovieSuggestionItem(
+                  movie: _movie,
+                  heroId: '${_movie.id}-searchlist',
                 );
               },
             ).toList(),
           );
         } else {
-          return Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return _buildLoadingSearch();
         }
       },
     );

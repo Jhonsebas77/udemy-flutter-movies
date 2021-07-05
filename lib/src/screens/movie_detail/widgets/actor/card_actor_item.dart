@@ -19,6 +19,7 @@ class CardActorItem extends StatelessWidget {
         right: 15.0,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             child: FadeInImage(
@@ -36,15 +37,25 @@ class CardActorItem extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(20),
           ),
+          SizedBox(
+            height: 5,
+          ),
           Text(
             characterName,
+            textAlign: TextAlign.left,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.subtitle1.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           Text(
             realName,
+            textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.subtitle2.copyWith(
+                  fontSize: 10,
+                ),
           ),
         ],
       ),

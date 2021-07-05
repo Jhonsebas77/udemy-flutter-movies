@@ -1,39 +1,62 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/src/helpers/debouncer.dart';
 import 'package:movies_app/src/models/actor_model.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_endpoint.dart';
 
-class MoviesProvider {
+class MoviesProvider extends ChangeNotifier {
   String _apiKey = '9d30286b85d5c959f62b788bf92a8bc1';
   String _language = 'es-ES';
   int _popularPage = 0;
   bool _loading = false;
   List<Movie> _popularMovies = new List();
+  Map<int, List<Actor>> _movieCast = {};
+
+  final debouncer = Debouncer(
+    duration: Duration(
+      milliseconds: 500,
+    ),
+  );
 
   final _popularStreamController = StreamController<List<Movie>>.broadcast();
 
+  final StreamController<List<Movie>> _suggestionStreamController =
+      StreamController<List<Movie>>.broadcast();
+
   void disposeStreams() {
     _popularStreamController.close();
+    _suggestionStreamController.close();
   }
 
   Function(List<Movie>) get popularSink => _popularStreamController.sink.add;
 
   Stream<List<Movie>> get popularStream => _popularStreamController.stream;
 
+  Stream<List<Movie>> get suggestionStream =>
+      _suggestionStreamController.stream;
+
   Future<List<Movie>> _makeRequest(Uri url, String decodeValue) async {
     final response = await http.get(url);
-    final decodeResponse = json.decode(response.body);
+    final Map<String, dynamic> decodeResponse = json.decode(response.body);
     final movies = Movies.fromJsonList(decodeResponse[decodeValue]);
+    notifyListeners();
     return movies.items;
   }
 
-  Future<List<Actor>> _makeRequestActor(Uri url, String decodeValue) async {
+  Future<List<Actor>> _makeRequestActor(
+    Uri url,
+    int movieId,
+    String decodeValue,
+  ) async {
+    if (_movieCast.containsKey(movieId)) return _movieCast[movieId];
     final response = await http.get(url);
-    final decodeResponse = json.decode(response.body);
+    final Map<String, dynamic> decodeResponse = json.decode(response.body);
     final actors = Actors.fromJsonList(decodeResponse[decodeValue]);
+    _movieCast[movieId] = actors.items;
     return actors.items;
   }
 
@@ -71,7 +94,7 @@ class MoviesProvider {
   }
 
   Future<List<Actor>> getActor(
-    String movieId,
+    int movieId,
   ) async {
     final url = Uri.https(
       MoviesEndpoint.baseEndpoint,
@@ -81,7 +104,7 @@ class MoviesProvider {
         'languaje': _language,
       },
     );
-    return _makeRequestActor(url, 'cast');
+    return _makeRequestActor(url, movieId, 'cast');
   }
 
   Future<List<Movie>> findMovie(
@@ -97,5 +120,24 @@ class MoviesProvider {
       },
     );
     return _makeRequest(url, 'results');
+  }
+
+  void getSuggestionByQuery(String query) {
+    debouncer.value = '';
+    debouncer.onValue = (value) async {
+      final results = await this.findMovie(value);
+      this._suggestionStreamController.add(results);
+    };
+    final timer = Timer.periodic(
+      Duration(milliseconds: 300),
+      (_) {
+        debouncer.value = query;
+      },
+    );
+    Future.delayed(
+      Duration(milliseconds: 301),
+    ).then(
+      (_) => timer.cancel(),
+    );
   }
 }
