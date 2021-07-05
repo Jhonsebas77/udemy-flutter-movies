@@ -66,8 +66,9 @@ class DataSearch extends SearchDelegate {
       context,
       listen: false,
     );
-    return FutureBuilder(
-      future: movieProvider.findMovie(query),
+    movieProvider.getSuggestionByQuery(query);
+    return StreamBuilder(
+      stream: movieProvider.suggestionStream,
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
         if (snapshot.hasData) {
           final movies = snapshot.data;
