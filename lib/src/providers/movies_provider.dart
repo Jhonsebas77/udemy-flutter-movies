@@ -26,14 +26,15 @@ class MoviesProvider extends ChangeNotifier {
 
   Future<List<Movie>> _makeRequest(Uri url, String decodeValue) async {
     final response = await http.get(url);
-    final decodeResponse = json.decode(response.body);
+    final Map<String, dynamic> decodeResponse = json.decode(response.body);
     final movies = Movies.fromJsonList(decodeResponse[decodeValue]);
+    notifyListeners();
     return movies.items;
   }
 
   Future<List<Actor>> _makeRequestActor(Uri url, String decodeValue) async {
     final response = await http.get(url);
-    final decodeResponse = json.decode(response.body);
+    final Map<String, dynamic> decodeResponse = json.decode(response.body);
     final actors = Actors.fromJsonList(decodeResponse[decodeValue]);
     return actors.items;
   }

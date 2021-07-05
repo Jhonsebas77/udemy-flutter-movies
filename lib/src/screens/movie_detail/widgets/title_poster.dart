@@ -50,10 +50,12 @@ class TitlePoster extends StatelessWidget {
                 Text(
                   movieTitle,
                   style: textTheme.textTheme.headline6,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   movieOriginalTitle,
+                  maxLines: 2,
                   style: textTheme.textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis,
                 ),

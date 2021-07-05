@@ -3,6 +3,7 @@ import 'package:movies_app/src/screens/widgets/popular_movie/card_popular_movie.
 import 'package:movies_app/src/screens/widgets/poster_movie/card_swipper_widget.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
 import 'package:movies_app/src/search/search_delegate.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -12,9 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final moviesProvider = MoviesProvider();
   @override
   Widget build(BuildContext context) {
+    final moviesProvider = Provider.of<MoviesProvider>(context);
     moviesProvider.getPopular();
     return Scaffold(
       appBar: AppBar(
@@ -40,18 +41,26 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildSwiperCard(),
+            _buildSwiperCard(
+              moviesProvider,
+            ),
             SizedBox(
               height: 20,
             ),
-            _buildFooter(context),
+            _buildFooter(
+              context,
+              moviesProvider,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSwiperCard() => FutureBuilder(
+  Widget _buildSwiperCard(
+    MoviesProvider moviesProvider,
+  ) =>
+      FutureBuilder(
         future: moviesProvider.getNowPlaying(),
         builder: (
           BuildContext context,
@@ -72,7 +81,11 @@ class _HomePageState extends State<HomePage> {
         },
       );
 
-  Widget _buildFooter(BuildContext context) => Container(
+  Widget _buildFooter(
+    BuildContext context,
+    MoviesProvider moviesProvider,
+  ) =>
+      Container(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

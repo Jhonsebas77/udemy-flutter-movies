@@ -19,6 +19,7 @@ class CardActorItem extends StatelessWidget {
         right: 15.0,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             child: FadeInImage(

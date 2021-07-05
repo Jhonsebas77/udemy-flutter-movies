@@ -39,10 +39,18 @@ class CardPopularItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
+          SizedBox(
+            height: 5,
+          ),
           Text(
             movieTitle,
+            textAlign: TextAlign.center,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ],
       ),

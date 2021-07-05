@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => HomePage(),
         '/detail': (BuildContext context) => DetailMovie(),
       },
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
         appBarTheme: AppBarTheme(
-          color: Colors.grey,
+          color: Colors.black,
           centerTitle: false,
         ),
       ),
