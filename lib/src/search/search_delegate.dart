@@ -3,20 +3,10 @@ import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
-  final movies = [
-    'EndGame',
-    'Capitana Marvel',
-    'Capitan America',
-    'Spiderman',
-    'Pokemon',
-  ];
-  final recentMovies = [
-    'Spiderman',
-    'Capitan America',
-  ];
   final movieProvider = new MoviesProvider();
 
-  String sellection;
+  @override
+  String get searchFieldLabel => 'Find Movies';
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -55,15 +45,6 @@ class DataSearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // final listSuggest = (query.isEmpty)
-    //     ? recentMovies
-    //     : movies
-    //         .where(
-    //           (_movie) => _movie.toLowerCase().startsWith(
-    //                 query.toLowerCase(),
-    //               ),
-    //         )
-    //         .toList();
     if (query.isEmpty) {
       return Container();
     }

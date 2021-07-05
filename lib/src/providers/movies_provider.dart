@@ -13,6 +13,7 @@ class MoviesProvider extends ChangeNotifier {
   int _popularPage = 0;
   bool _loading = false;
   List<Movie> _popularMovies = new List();
+  Map<int, List<Actor>> _movieCast = {};
 
   final _popularStreamController = StreamController<List<Movie>>.broadcast();
 
@@ -32,10 +33,16 @@ class MoviesProvider extends ChangeNotifier {
     return movies.items;
   }
 
-  Future<List<Actor>> _makeRequestActor(Uri url, String decodeValue) async {
+  Future<List<Actor>> _makeRequestActor(
+    Uri url,
+    int movieId,
+    String decodeValue,
+  ) async {
+    if (_movieCast.containsKey(movieId)) return _movieCast[movieId];
     final response = await http.get(url);
     final Map<String, dynamic> decodeResponse = json.decode(response.body);
     final actors = Actors.fromJsonList(decodeResponse[decodeValue]);
+    _movieCast[movieId] = actors.items;
     return actors.items;
   }
 
@@ -73,7 +80,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<Actor>> getActor(
-    String movieId,
+    int movieId,
   ) async {
     final url = Uri.https(
       MoviesEndpoint.baseEndpoint,
@@ -83,7 +90,7 @@ class MoviesProvider extends ChangeNotifier {
         'languaje': _language,
       },
     );
-    return _makeRequestActor(url, 'cast');
+    return _makeRequestActor(url, movieId, 'cast');
   }
 
   Future<List<Movie>> findMovie(
