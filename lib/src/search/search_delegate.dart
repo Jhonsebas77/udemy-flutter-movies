@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
+import 'package:movies_app/src/search/widgets/movie_suggestion/movie_suggestion_item.dart';
+import 'package:provider/provider.dart';
 
 class DataSearch extends SearchDelegate {
-  final movieProvider = new MoviesProvider();
-
   @override
   String get searchFieldLabel => 'Find Movies';
 
@@ -15,9 +15,7 @@ class DataSearch extends SearchDelegate {
         icon: Icon(
           Icons.clear,
         ),
-        onPressed: () {
-          query = '';
-        },
+        onPressed: () => query = '',
       ),
     ];
   }
@@ -43,12 +41,31 @@ class DataSearch extends SearchDelegate {
     return Container();
   }
 
+  Widget _buildLoadingSearch() => Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
+  Widget _buildEmptySearch() => Container(
+        child: Center(
+          child: Icon(
+            Icons.movie,
+            color: Colors.black38,
+            size: 130,
+          ),
+        ),
+      );
+
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
-      return Container();
+      return _buildEmptySearch();
     }
-
+    final movieProvider = Provider.of<MoviesProvider>(
+      context,
+      listen: false,
+    );
     return FutureBuilder(
       future: movieProvider.findMovie(query),
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
@@ -57,42 +74,14 @@ class DataSearch extends SearchDelegate {
           return ListView(
             children: movies.map(
               (_movie) {
-                return ListTile(
-                  leading: FadeInImage(
-                    image: NetworkImage(
-                      _movie.getPosterImage(),
-                    ),
-                    placeholder: AssetImage(
-                      'Assets/images/no-image.jpg',
-                    ),
-                    width: 50,
-                    fit: BoxFit.contain,
-                  ),
-                  title: Text(
-                    _movie.title,
-                  ),
-                  subtitle: Text(
-                    _movie.originalTitle,
-                  ),
-                  onTap: () {
-                    showResults(context);
-                    _movie.uniqueId = '';
-                    Navigator.pushNamed(
-                      context,
-                      '/detail',
-                      arguments: _movie,
-                    );
-                  },
+                return MovieSuggestionItem(
+                  movie: _movie,
                 );
               },
             ).toList(),
           );
         } else {
-          return Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return _buildLoadingSearch();
         }
       },
     );
