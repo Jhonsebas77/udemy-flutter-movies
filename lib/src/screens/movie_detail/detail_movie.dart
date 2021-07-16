@@ -35,6 +35,9 @@ class DetailMovie extends StatelessWidget {
                   movie.overview!,
                   context,
                 ),
+                SizedBox(
+                  height: 10.0,
+                ),
                 _buildCasting(
                   movie.id,
                   context,

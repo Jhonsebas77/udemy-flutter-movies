@@ -42,15 +42,18 @@ class CardPopularItem extends StatelessWidget {
           SizedBox(
             height: 5,
           ),
-          Text(
-            movieTitle!,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption!.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                ),
+          SizedBox(
+            width: 80,
+            child: Text(
+              movieTitle!,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
           ),
         ],
       ),

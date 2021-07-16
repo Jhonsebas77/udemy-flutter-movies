@@ -3,11 +3,9 @@ import 'package:movies_app/src/models/movie_model.dart';
 
 class MovieSuggestionItem extends StatelessWidget {
   final Movie movie;
-  final String heroId;
 
   const MovieSuggestionItem({
     required this.movie,
-    required this.heroId,
     Key? key,
   }) : super(key: key);
 
@@ -15,7 +13,7 @@ class MovieSuggestionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Hero(
-        tag: heroId,
+        tag: movie.uniqueIdSearchList,
         child: FadeInImage(
           image: NetworkImage(
             movie.getPosterImage(),
@@ -34,7 +32,6 @@ class MovieSuggestionItem extends StatelessWidget {
         movie.originalTitle!,
       ),
       onTap: () {
-        movie.uniqueId = '${movie.id}-searchlist';
         Navigator.pushNamed(
           context,
           '/detail',

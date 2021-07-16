@@ -6,7 +6,6 @@ class CardPopular extends StatelessWidget {
   final List<Movie>? movies;
   final Function nextPage;
   final _pageController = new PageController(
-    initialPage: 1,
     viewportFraction: 0.3,
   );
 
@@ -31,14 +30,14 @@ class CardPopular extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(
         top: 10,
+        left: 10,
       ),
       height: _screenSize.height * 0.3,
-      child: PageView.builder(
-        pageSnapping: false,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
         controller: _pageController,
         itemCount: movies!.length,
         itemBuilder: (context, index) {
-          movies![index].uniqueId = '${movies![index].id}-popular';
           return GestureDetector(
             child: CardPopularItem(
               urlPoster: movies![index].getPosterImage(),

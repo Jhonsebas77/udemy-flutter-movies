@@ -77,7 +77,6 @@ class DataSearch extends SearchDelegate {
               (_movie) {
                 return MovieSuggestionItem(
                   movie: _movie,
-                  heroId: '${_movie.id}-searchlist',
                 );
               },
             ).toList(),

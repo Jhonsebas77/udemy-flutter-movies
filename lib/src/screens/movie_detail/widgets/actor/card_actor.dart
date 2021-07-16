@@ -5,7 +5,6 @@ import 'package:movies_app/src/screens/movie_detail/widgets/actor/card_actor_ite
 class ActorCard extends StatelessWidget {
   final List<Actor>? actors;
   final _pageController = new PageController(
-    initialPage: 1,
     viewportFraction: 0.3,
   );
 
@@ -18,8 +17,11 @@ class ActorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      child: PageView.builder(
-        pageSnapping: false,
+      margin: EdgeInsets.only(
+        left: 10,
+      ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
         controller: _pageController,
         itemCount: actors!.length,
         itemBuilder: (context, index) => CardActorItem(

@@ -26,7 +26,6 @@ class Movie {
   bool? video;
   double? voteAverage;
   int? voteCount;
-  String? uniqueId;
 
   Movie({
     this.adult,
@@ -61,6 +60,12 @@ class Movie {
     voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
   }
+
+  String get uniqueId => '$id-card';
+
+  String get uniqueIdBanner => '$id-banner';
+
+  String get uniqueIdSearchList => '$id-searchlist';
 
   getPosterImage() {
     if (posterPath == null)
