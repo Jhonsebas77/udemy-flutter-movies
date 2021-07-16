@@ -10,7 +10,7 @@ class DetailMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context)?.settings?.arguments as Movie;
+    final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[

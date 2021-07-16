@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:movies_app/src/models/movie_model.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/src/screens/widgets/poster_movie/card_item_widget.dart';
 
 class SwipperCard extends StatelessWidget {
@@ -18,12 +18,13 @@ class SwipperCard extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 10,
       ),
-      child: Swiper(
+      child: CarouselSlider.builder(
         itemCount: movies!.length,
-        itemHeight: _screenSize.height * 0.5,
-        itemWidth: _screenSize.width * 0.7,
-        layout: SwiperLayout.STACK,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (
+          context,
+          index,
+          realIndex,
+        ) {
           movies![index].uniqueId = '${movies![index].id}-card';
           return Hero(
             tag: movies![index].uniqueId!,
@@ -44,6 +45,12 @@ class SwipperCard extends StatelessWidget {
             ),
           );
         },
+        options: CarouselOptions(
+          autoPlay: true,
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+          height: _screenSize.height * 0.5,
+        ),
       ),
     );
   }

@@ -9,7 +9,9 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return Container(
+      height: _screenSize.height * 0.5,
       child: FadeInImage(
         placeholder: AssetImage(
           'Assets/images/no-image.jpg',
