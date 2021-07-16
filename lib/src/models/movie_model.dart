@@ -1,8 +1,8 @@
 class Movies {
-  List<Movie> items = new List();
+  List<Movie> items = [];
   Movies();
 
-  Movies.fromJsonList(List<dynamic> jsonList) {
+  Movies.fromJsonList(List<dynamic>? jsonList) {
     if (jsonList == null) return;
     for (var item in jsonList) {
       final movie = new Movie.fromJsonMap(item);
@@ -12,21 +12,21 @@ class Movies {
 }
 
 class Movie {
-  bool adult;
-  String backdropPath;
-  List<int> genreIds;
-  int id;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String posterPath;
-  String releaseDate;
-  String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
-  String uniqueId;
+  bool? adult;
+  String? backdropPath;
+  List<int>? genreIds;
+  int? id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  String? releaseDate;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
+  String? uniqueId;
 
   Movie({
     this.adult,

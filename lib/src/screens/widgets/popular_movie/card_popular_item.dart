@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class CardPopularItem extends StatelessWidget {
   final String urlPoster;
-  final String movieTitle;
-  final String movieUniqueId;
+  final String? movieTitle;
+  final String? movieUniqueId;
 
   const CardPopularItem({
-    @required this.urlPoster,
-    @required this.movieTitle,
-    @required this.movieUniqueId,
-    Key key,
+    required this.urlPoster,
+    required this.movieTitle,
+    required this.movieUniqueId,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class CardPopularItem extends StatelessWidget {
       child: Column(
         children: [
           Hero(
-            tag: movieUniqueId,
+            tag: movieUniqueId!,
             child: ClipRRect(
               child: FadeInImage(
                 placeholder: AssetImage(
@@ -43,11 +43,11 @@ class CardPopularItem extends StatelessWidget {
             height: 5,
           ),
           Text(
-            movieTitle,
+            movieTitle!,
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption.copyWith(
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),

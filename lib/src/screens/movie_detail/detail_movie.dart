@@ -6,11 +6,11 @@ import 'package:movies_app/src/screens/movie_detail/widgets/index.dart';
 import 'package:provider/provider.dart';
 
 class DetailMovie extends StatelessWidget {
-  const DetailMovie({Key key}) : super(key: key);
+  const DetailMovie({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context)?.settings?.arguments;
+    final Movie movie = ModalRoute.of(context)?.settings?.arguments as Movie;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -32,7 +32,7 @@ class DetailMovie extends StatelessWidget {
                   movieUniqueId: movie.uniqueId,
                 ),
                 _buildDescriptionMovie(
-                  movie.overview,
+                  movie.overview!,
                   context,
                 ),
                 _buildCasting(
@@ -64,7 +64,7 @@ class DetailMovie extends StatelessWidget {
   }
 
   Widget _buildCasting(
-    int id,
+    int? id,
     BuildContext context,
   ) {
     final movieProvider = Provider.of<MoviesProvider>(
@@ -75,7 +75,7 @@ class DetailMovie extends StatelessWidget {
       future: movieProvider.getActor(id),
       builder: (
         BuildContext context,
-        AsyncSnapshot<List<Actor>> snapshot,
+        AsyncSnapshot<List<Actor>?> snapshot,
       ) {
         if (snapshot.hasData) {
           return ActorCard(

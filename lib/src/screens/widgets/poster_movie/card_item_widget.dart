@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class CardItem extends StatelessWidget {
   final String urlPoster;
   const CardItem({
-    @required this.urlPoster,
-    Key key,
+    required this.urlPoster,
+    Key? key,
   }) : super(key: key);
 
   @override

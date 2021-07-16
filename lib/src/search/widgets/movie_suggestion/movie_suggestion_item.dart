@@ -6,9 +6,9 @@ class MovieSuggestionItem extends StatelessWidget {
   final String heroId;
 
   const MovieSuggestionItem({
-    @required this.movie,
-    @required this.heroId,
-    Key key,
+    required this.movie,
+    required this.heroId,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,10 +28,10 @@ class MovieSuggestionItem extends StatelessWidget {
         ),
       ),
       title: Text(
-        movie.title,
+        movie.title!,
       ),
       subtitle: Text(
-        movie.originalTitle,
+        movie.originalTitle!,
       ),
       onTap: () {
         movie.uniqueId = '${movie.id}-searchlist';

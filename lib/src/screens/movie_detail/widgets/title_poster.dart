@@ -3,18 +3,18 @@ import 'package:movies_app/src/screens/movie_detail/widgets/index.dart';
 
 class TitlePoster extends StatelessWidget {
   final String urlPosterImage;
-  final String movieTitle;
-  final String movieUniqueId;
-  final String movieOriginalTitle;
+  final String? movieTitle;
+  final String? movieUniqueId;
+  final String? movieOriginalTitle;
   final String voteAverage;
 
   const TitlePoster({
-    @required this.urlPosterImage,
-    @required this.movieTitle,
-    @required this.movieUniqueId,
-    @required this.movieOriginalTitle,
-    @required this.voteAverage,
-    Key key,
+    required this.urlPosterImage,
+    required this.movieTitle,
+    required this.movieUniqueId,
+    required this.movieOriginalTitle,
+    required this.voteAverage,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class TitlePoster extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-            tag: movieUniqueId,
+            tag: movieUniqueId!,
             child: ClipRRect(
               child: Image(
                 image: NetworkImage(
@@ -48,13 +48,13 @@ class TitlePoster extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  movieTitle,
+                  movieTitle!,
                   style: textTheme.textTheme.headline6,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  movieOriginalTitle,
+                  movieOriginalTitle!,
                   maxLines: 2,
                   style: textTheme.textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis,

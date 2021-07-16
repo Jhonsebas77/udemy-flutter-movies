@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class RateStars extends StatelessWidget {
   final String voteAverage;
   const RateStars({
-    @required this.voteAverage,
-    Key key,
+    required this.voteAverage,
+    Key? key,
   }) : super(key: key);
 
   @override

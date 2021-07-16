@@ -4,11 +4,11 @@ import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/screens/widgets/poster_movie/card_item_widget.dart';
 
 class SwipperCard extends StatelessWidget {
-  final List<Movie> movies;
+  final List<Movie>? movies;
 
   const SwipperCard({
-    @required this.movies,
-    Key key,
+    required this.movies,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -19,25 +19,25 @@ class SwipperCard extends StatelessWidget {
         top: 10,
       ),
       child: Swiper(
-        itemCount: movies.length,
+        itemCount: movies!.length,
         itemHeight: _screenSize.height * 0.5,
         itemWidth: _screenSize.width * 0.7,
         layout: SwiperLayout.STACK,
         itemBuilder: (BuildContext context, int index) {
-          movies[index].uniqueId = '${movies[index].id}-card';
+          movies![index].uniqueId = '${movies![index].id}-card';
           return Hero(
-            tag: movies[index].uniqueId,
+            tag: movies![index].uniqueId!,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30.0),
               child: GestureDetector(
                 child: CardItem(
-                  urlPoster: movies[index].getPosterImage(),
+                  urlPoster: movies![index].getPosterImage(),
                 ),
                 onTap: () {
                   Navigator.pushNamed(
                     context,
                     '/detail',
-                    arguments: movies[index],
+                    arguments: movies![index],
                   );
                 },
               ),

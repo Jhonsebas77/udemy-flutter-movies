@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class CardActorItem extends StatelessWidget {
   final String urlPhoto;
-  final String characterName;
-  final String realName;
+  final String? characterName;
+  final String? realName;
 
   const CardActorItem({
-    @required this.urlPhoto,
-    @required this.characterName,
-    @required this.realName,
-    Key key,
+    required this.urlPhoto,
+    required this.characterName,
+    required this.realName,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -41,19 +41,19 @@ class CardActorItem extends StatelessWidget {
             height: 5,
           ),
           Text(
-            characterName,
+            characterName!,
             textAlign: TextAlign.left,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
           ),
           Text(
-            realName,
+            realName!,
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle2.copyWith(
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
                   fontSize: 10,
                 ),
           ),
