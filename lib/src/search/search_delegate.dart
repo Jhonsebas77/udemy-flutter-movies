@@ -71,13 +71,12 @@ class DataSearch extends SearchDelegate {
       stream: movieProvider.suggestionStream,
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
         if (snapshot.hasData) {
-          final movies = snapshot.data;
+          final movies = snapshot.data!;
           return ListView(
             children: movies.map(
               (_movie) {
                 return MovieSuggestionItem(
                   movie: _movie,
-                  heroId: '${_movie.id}-searchlist',
                 );
               },
             ).toList(),

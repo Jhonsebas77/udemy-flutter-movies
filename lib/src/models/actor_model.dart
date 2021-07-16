@@ -1,9 +1,8 @@
 class Actors {
-  List<Actor> items = new List();
+  List<Actor> items = [];
   Actors();
 
   Actors.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) return;
     for (var item in jsonList) {
       final actor = new Actor.fromJsonMap(item);
       items.add(actor);
@@ -12,20 +11,20 @@ class Actors {
 }
 
 class Actor {
-  bool adult;
-  int gender;
-  int id;
-  String knownForDepartment;
-  String name;
-  String originalName;
-  double popularity;
-  String profilePath;
-  int castId;
-  String character;
-  String creditId;
-  int order;
-  String department;
-  String job;
+  bool? adult;
+  int? gender;
+  int? id;
+  String? knownForDepartment;
+  String? name;
+  String? originalName;
+  double? popularity;
+  String? profilePath;
+  int? castId;
+  String? character;
+  String? creditId;
+  int? order;
+  String? department;
+  String? job;
 
   Actor({
     this.adult,

@@ -13,8 +13,8 @@ class MoviesProvider extends ChangeNotifier {
   String _language = 'es-ES';
   int _popularPage = 0;
   bool _loading = false;
-  List<Movie> _popularMovies = new List();
-  Map<int, List<Actor>> _movieCast = {};
+  List<Movie> _popularMovies = [];
+  Map<int?, List<Actor>> _movieCast = {};
 
   final debouncer = Debouncer(
     duration: Duration(
@@ -47,9 +47,9 @@ class MoviesProvider extends ChangeNotifier {
     return movies.items;
   }
 
-  Future<List<Actor>> _makeRequestActor(
+  Future<List<Actor>?> _makeRequestActor(
     Uri url,
-    int movieId,
+    int? movieId,
     String decodeValue,
   ) async {
     if (_movieCast.containsKey(movieId)) return _movieCast[movieId];
@@ -93,8 +93,8 @@ class MoviesProvider extends ChangeNotifier {
     return response;
   }
 
-  Future<List<Actor>> getActor(
-    int movieId,
+  Future<List<Actor>?> getActor(
+    int? movieId,
   ) async {
     final url = Uri.https(
       MoviesEndpoint.baseEndpoint,
@@ -108,7 +108,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<Movie>> findMovie(
-    String query,
+    String? query,
   ) async {
     final url = Uri.https(
       MoviesEndpoint.baseEndpoint,

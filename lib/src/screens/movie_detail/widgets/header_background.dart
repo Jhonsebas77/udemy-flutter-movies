@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class HeaderBackground extends StatelessWidget {
-  final String movieTitle;
+  final String? movieTitle;
   final String backgroundUrl;
 
   const HeaderBackground({
-    @required this.movieTitle,
-    @required this.backgroundUrl,
-    Key key,
+    required this.movieTitle,
+    required this.backgroundUrl,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class HeaderBackground extends StatelessWidget {
           title: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              movieTitle,
+              movieTitle!,
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(

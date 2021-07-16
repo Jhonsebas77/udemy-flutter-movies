@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/screens/widgets/popular_movie/card_popular_movie.dart';
 import 'package:movies_app/src/screens/widgets/poster_movie/card_swipper_widget.dart';
 import 'package:movies_app/src/providers/movies_provider.dart';
@@ -6,7 +7,7 @@ import 'package:movies_app/src/search/search_delegate.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         future: moviesProvider.getNowPlaying(),
         builder: (
           BuildContext context,
-          AsyncSnapshot<List> snapshot,
+          AsyncSnapshot<List<Movie>> snapshot,
         ) {
           if (snapshot.hasData) {
             return SwipperCard(
@@ -110,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               ) {
                 if (snapshot.hasData) {
                   return CardPopular(
-                    movies: snapshot.data,
+                    movies: snapshot.data as List<Movie>?,
                     nextPage: moviesProvider.getPopular,
                   );
                 } else {
