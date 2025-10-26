@@ -20,7 +20,7 @@ class RateStars extends StatelessWidget {
         ),
         Text(
           voteAverage,
-          style: Theme.of(context).textTheme.subtitle1,
+          // style: Theme.of(context).textTheme.subtitle1,
         ),
       ],
     );

@@ -49,18 +49,18 @@ class CardActorItem extends StatelessWidget {
                   characterName!,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  // style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  //       fontSize: 10,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
                 ),
                 Text(
                   realName!,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                        fontSize: 10,
-                      ),
+                  // style: Theme.of(context).textTheme.caption!.copyWith(
+                  //       fontSize: 10,
+                  //     ),
                 ),
               ],
             ),
